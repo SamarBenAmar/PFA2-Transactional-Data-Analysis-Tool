@@ -1,0 +1,1 @@
+select order_id, count(*) as nb_items from order_details group by order_id order by order_id;

@@ -1,0 +1,9 @@
+CONSUMER customers-consumer
+topic: postgres.public.customers
+partitions: 0
+from: 1
+
+CONSUMER categories-consumer
+topic: postgres.public.categories
+partitions: 0
+from: 1

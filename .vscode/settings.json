@@ -1,0 +1,25 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "northwind",
+            "database": "northwind",
+            "username": "postgres",
+            "password": "azerty"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5433,
+            "driver": "PostgreSQL",
+            "name": "olap_db",
+            "database": "olap_db",
+            "username": "postgres",
+            "password": "azerty"
+        }
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

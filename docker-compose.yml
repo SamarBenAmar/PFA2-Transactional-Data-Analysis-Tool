@@ -1,0 +1,85 @@
+version: '3.7'
+
+services:
+
+  postgres:
+    image: debezium/example-postgres:1.8
+    container_name: postgres
+    environment:
+      POSTGRES_DB: northwind
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: azerty
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - ./db_scripts/northwind-schema.sql:/docker-entrypoint-initdb.d/northwind.sql
+    ports:
+      - 5432:5432
+  olap_db:
+    image: debezium/example-postgres:1.8
+    container_name: olap_db
+    environment:
+      POSTGRES_DB: olap_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: azerty
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - ./db_scripts/northwind-schema-and-data.sql:/docker-entrypoint-initdb.d/northwind.sql
+    ports:
+      - 5433:5432 
+  pgadmin:
+      container_name: pgadmin
+      image: dpage/pgadmin4
+      environment:
+        PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+        PGADMIN_DEFAULT_PASSWORD: azerty
+        PGADMIN_LISTEN_PORT: 5050
+        PGADMIN_CONFIG_SERVER_MODE: 'False'
+      volumes:
+        - postgresql_bin:/usr/lib/postgresql
+        - pgadmin_root_prefs:/root/.pgadmin
+      ports:
+        - 5050:5050 
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.0
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: confluentinc/cp-kafka:7.0.0
+    container_name: broker
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,CONNECTIONS_FROM_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_CLEANER_DELETE_RETENTION_MS: 5000
+      KAFKA_BROKER_ID: 1
+      KAFKA_MIN_INSYNC_REPLICAS: 1
+
+  connector:
+    image: debezium/connect:1.8
+    container_name: kafka_connect_with_debezium
+    ports:
+      - "8083:8083"
+    environment:
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      BOOTSTRAP_SERVERS: broker:9092
+    depends_on:
+      - zookeeper
+      - broker
+volumes:
+  pgadmin_root_prefs:
+    driver: local
+  postgresql_bin:
+    driver: local

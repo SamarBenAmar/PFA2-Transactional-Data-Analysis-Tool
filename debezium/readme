@@ -1,0 +1,14 @@
+#démarrer le docker compose
+
+#démarrer le connecteur Debeziumavec curl
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-postgres.json
+#ou avec postman en mettant le contenu de register-postgres.json dans le body du post
+
+# ouvrir pgadmin sur localhost:5050
+#ajouter un serveur nom northwind et dans connection mettre le host adress à postgres
+#vous trouverez la base northwind avec un shéma public dans lequel il n y a que les tables vides
+
+# installer l'extension jeppeandersen.vscode-kafka, ouvrir le fichier .kafka dans debezium et cliquer sur start consumer
+
+# utiliser le fichier db_scripts/northwind-data.sql et faire des requetes et voir le résultat affiché par le consumer
+

@@ -1,0 +1,197 @@
+{
+    "schema": {
+        "type": "struct",
+        "fields": [
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "int16",
+                        "optional": false,
+                        "field": "category_id"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "category_name"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "description"
+                    },
+                    {
+                        "type": "bytes",
+                        "optional": true,
+                        "field": "picture"
+                    }
+                ],
+                "optional": true,
+                "name": "postgres.public.categories.Value",
+                "field": "before"
+            },
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "int16",
+                        "optional": false,
+                        "field": "category_id"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "category_name"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "description"
+                    },
+                    {
+                        "type": "bytes",
+                        "optional": true,
+                        "field": "picture"
+                    }
+                ],
+                "optional": true,
+                "name": "postgres.public.categories.Value",
+                "field": "after"
+            },
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "version"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "connector"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "name"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": false,
+                        "field": "ts_ms"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "name": "io.debezium.data.Enum",
+                        "version": 1,
+                        "parameters": {
+                            "allowed": "true,last,false,incremental"
+                        },
+                        "default": "false",
+                        "field": "snapshot"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "db"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "sequence"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "schema"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "table"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "txId"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "lsn"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "xmin"
+                    }
+                ],
+                "optional": false,
+                "name": "io.debezium.connector.postgresql.Source",
+                "field": "source"
+            },
+            {
+                "type": "string",
+                "optional": false,
+                "field": "op"
+            },
+            {
+                "type": "int64",
+                "optional": true,
+                "field": "ts_ms"
+            },
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "id"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": false,
+                        "field": "total_order"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": false,
+                        "field": "data_collection_order"
+                    }
+                ],
+                "optional": true,
+                "field": "transaction"
+            }
+        ],
+        "optional": false,
+        "name": "postgres.public.categories.Envelope"
+    },
+    "payload": {
+        "before": {
+            "category_id": 7,
+            "category_name": "",
+            "description": null,
+            "picture": null
+        },
+        "after": null,
+        "source": {
+            "version": "1.8.1.Final",
+            "connector": "postgresql",
+            "name": "postgres",
+            "ts_ms": 1646009565487,
+            "snapshot": "false",
+            "db": "northwind",
+            "sequence": "[\"36971832\",\"36973336\"]",
+            "schema": "public",
+            "table": "categories",
+            "txId": 813,
+            "lsn": 36973336,
+            "xmin": null
+        },
+        "op": "d",
+        "ts_ms": 1646009565652,
+        "transaction": null
+    }
+}
