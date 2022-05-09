@@ -1,0 +1,2 @@
+# PFA2-Transactional-Data-Analysis-Tool
+This project is done as part of my end-of-year project at the national school of engineers in tunis. It focuses on the development of a transactional data analysis tool using Kafka and debezium (CDC). It is based on copying data from an OLTP database to another OLAP to allow rapid execution of complex statistical queries while detecting data changes in real time.
